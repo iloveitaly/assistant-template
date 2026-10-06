@@ -1,2 +1,3 @@
 [tools]
-"github:adhocore/gronx" = "latest"
+python = "latest"
+uv = "latest"
