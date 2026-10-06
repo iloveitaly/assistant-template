@@ -1,0 +1,40 @@
+# NOTE some limitations of copier:
+#
+#   - any extensions must be installed manually
+#   - you cannot use dst_path as default answers
+
+_min_copier_version: 9.4.1
+
+_answers_file: .copier/.copier-answers.yml
+
+_jinja_extensions:
+  - jinja2_shell_extension.ShellExtension
+
+_message_after_copy: |
+  Next steps:
+
+    1. Configure MCP server connections in Justfile (`just setup-mcp`).
+    2. Configure scheduled tasks in cron.yml (see cron.example.yml for examples).
+    3. Run `just cron` to start the foreground scheduler, or `just initial_wake` on workspace wake.
+    4. Review ASSISTANT.md and PYTHON.md for workspace architecture and coding guidelines.
+
+assistant_description:
+  type: str
+  help: Brief description of this assistant's purpose
+  default: Personal AI assistant workspace
+
+_exclude:
+  - TODO
+  - /.git
+  - /README.md
+  - /copier.yml
+  - /.copier/copy-template.sh
+
+_tasks:
+  - |
+    # Initialize git repo only on initial copy if not already in a git repository
+    if [ "$COPIER_OPERATION" = "copy" ] && ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+      git init
+      git add -A
+      git commit -m "🎉 Initial commit"
+    fi
