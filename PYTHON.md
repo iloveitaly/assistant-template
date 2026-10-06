@@ -7,6 +7,7 @@ Coding instructions for all programming languages:
 - Prefer early returns over nested if statements.
 - Prefer `continue` within a loop vs nested if statements.
 - Prefer smaller functions over larger functions. Break up logic into smaller chunks with well-named functions.
+- Use named constants for magic numbers, service urls, etc. Do not duplicate magic strings or numbers in code.
 - Prefer constants with separators: `10_000` is preferred to `10000` (or `10_00` over `1000` in the case of a integer representing cents).
 - Prefix feature-flag style constants with `{DISABLED,ENABLED}_`
 - When I ask you to write code, prioritize simplicity and legibility over covering all edge cases, handling all errors, etc.
@@ -58,7 +59,6 @@ Pay careful attention to these instructions when running tests, generating datab
 - Run `just` to understand the more important workflow commands.
   - Run `just --list` to see all available pre-written workflow development commands.
 - **IMPORTANT:** Never manually set environment variables that are required. You can set optional variables for debugging, but any missing required environment variables is an error that should be reported and you should stop your work immediately.
-- **NEVER** git commit changes. Always let me run any git commands which are not read-only.
 - Do not worry about cleaning up the environment. This is done automatically.
 - Run python code with `uv run python`
 - Use `pytest` to run tests. If tests fail because of a configuration, environment, or system error: let me know and stop working.
@@ -74,7 +74,6 @@ When writing Python:
 * Assume the latest python, version 3.13.
 * Prefer Pathlib methods (including read and write methods, like `read_text`) over `os.path`, `open`, `write`, etc.
 * docstrs and comments:
-  * Functions, classes, and other substantial code blocks longer than roughly 10 lines should have a concise docstring or comment describing their purpose.
   * If a docstring needs formatting, use markdown. Use Google Style.
   * Prefer docstr to multi-line comments at the top of a function or file.
   * If a docstr does not span multiple lines, do not use triple-quoted strings.
@@ -83,7 +82,7 @@ When writing Python:
 * Do not create `__init__` files unless specifically instructed
 * Use Pydantic models over dataclass or a typed dict.
 * Use SQLAlchemy for generating any SQL queries.
-* Use `cyclopts` for command line argument parsing, with Pydantic models for option validation.
+* Use `click` for command line argument parsing.
 * Use `log.info("the message", the_variable=the_variable)` instead of `log.info("The message: %s", the_variable)` or `print` for logging. This object can be found at `from app import log`.
   * Log messages should be lowercase with no leading or trailing whitespace.
   * No variable interpolation in log messages.
@@ -151,7 +150,7 @@ Use this header:
 
 - Specify dependencies via the `dependencies` variable in the above comment
 - Do not install packages with pip or any other package manager, assume packages will be installed when needed using `uv run --script`.
-- Use `cyclopts` for CLI interfaces, with Pydantic models for option validation
+- Use `click` for CLI interfaces
 - When listing constants at the top of the file, include a newline between entries and (for non-obvious constants) document each constant with a comment:
 
 ```python
