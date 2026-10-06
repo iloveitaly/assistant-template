@@ -1,0 +1,6 @@
+# Scheduled commands for gronx tasker.
+# Reference: https://github.com/adhocore/gronx#task-daemon
+#
+# Format: minute hour day-of-month month day-of-week command
+# Example:
+# 0 8 * * * python3 scripts/example.py
