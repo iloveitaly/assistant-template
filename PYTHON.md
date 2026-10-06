@@ -74,6 +74,7 @@ When writing Python:
 * Assume the latest python, version 3.13.
 * Prefer Pathlib methods (including read and write methods, like `read_text`) over `os.path`, `open`, `write`, etc.
 * docstrs and comments:
+  * Functions, classes, and other substantial code blocks longer than roughly 10 lines should have a concise docstring or comment describing their purpose.
   * If a docstring needs formatting, use markdown. Use Google Style.
   * Prefer docstr to multi-line comments at the top of a function or file.
   * If a docstr does not span multiple lines, do not use triple-quoted strings.
@@ -82,7 +83,7 @@ When writing Python:
 * Do not create `__init__` files unless specifically instructed
 * Use Pydantic models over dataclass or a typed dict.
 * Use SQLAlchemy for generating any SQL queries.
-* Use `click` for command line argument parsing.
+* Use `cyclopts` for command line argument parsing, with Pydantic models for option validation.
 * Use `log.info("the message", the_variable=the_variable)` instead of `log.info("The message: %s", the_variable)` or `print` for logging. This object can be found at `from app import log`.
   * Log messages should be lowercase with no leading or trailing whitespace.
   * No variable interpolation in log messages.
@@ -150,7 +151,7 @@ Use this header:
 
 - Specify dependencies via the `dependencies` variable in the above comment
 - Do not install packages with pip or any other package manager, assume packages will be installed when needed using `uv run --script`.
-- Use `click` for CLI interfaces
+- Use `cyclopts` for CLI interfaces, with Pydantic models for option validation
 - When listing constants at the top of the file, include a newline between entries and (for non-obvious constants) document each constant with a comment:
 
 ```python

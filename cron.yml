@@ -1,0 +1,28 @@
+# jobs run once per calendar period in America/Denver
+# recurrence: hourly, daily, weekly (Monday start), monthly, or yearly
+# daily resets at local midnight, rather than 24 hours after the last run
+# every is an optional positive integer (default 1), supported for hourly, daily, and weekly
+# every: 2 means every two calendar hours, days, or Monday-start weeks
+# the first attempt anchors the schedule to its current period; no start date is needed
+# the anchor survives restarts in SQLite, and missed intervals coalesce into one run
+# timeout_seconds is optional and defaults to 3600
+# specify exactly one of command or prompt
+# prompt references a markdown file relative to the working directory (absolute paths also work)
+# prompt jobs use agy --dangerously-skip-permissions --print with an @file reference
+# commands run from the working directory through a non-interactive zsh login shell
+# commands must stay in the foreground
+#
+# amazon_order_history:
+#   recurrence: monthly
+#   command: uv run --script scripts/amazon/export_amazon_order_history.py
+#   timeout_seconds: 3600
+#
+# daily_review:
+#   recurrence: daily
+#   prompt: personal-sops/daily_review.md
+#
+# alternate_day_review:
+#   recurrence: daily
+#   every: 2
+#   prompt: personal-sops/daily_review.md
+{}
